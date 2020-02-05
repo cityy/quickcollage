@@ -128,9 +128,9 @@ class main( QWidget ):
             if( self.previewChecker.isChecked() ):
                 collage.show()
             # saving
-            self.saveCollage( collage, filename )
+            success = self.saveCollage( collage, filename )
             # delete source images if option is checked
-            if( self.deleteChecker.isChecked() ):
+            if( self.deleteChecker.isChecked() and success ):
                 for path in imagePaths: 
                     removeFile( path )
 
@@ -140,6 +140,10 @@ class main( QWidget ):
             # print( newFilePath )
             if( newFilePath ):
                 collage.save( newFilePath + ".jpg" )
+                self.clearFileList()
+                return True
+            else:
+                return False
 
     def initUI( self ):
 
